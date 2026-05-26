@@ -5,6 +5,7 @@ pubDate: 2026-05-26
 tags: ['meta']
 category: 'Announcement'
 lang: 'zh'
+tldr: 'qing.uno is live. A personal blog about AI, engineering, and building real things. Expect deep dives, practical workflows, and honest retrospectives.'
 ---
 
 Welcome to **qing.uno**.

@@ -8,6 +8,8 @@ import ReadingProgress from '../components/ReadingProgress.astro';
 import BackToTop from '../components/BackToTop.astro';
 import CodeCopy from '../components/CodeCopy.astro';
 import TableOfContents from '../components/TableOfContents.astro';
+import SEOHead from '../components/SEOHead.astro';
+import Tldr from '../components/Tldr.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -16,12 +18,16 @@ interface Props {
   pubDate: Date;
   updatedDate?: Date;
   heroImage?: string;
+  ogImage?: string;
   tags?: string[];
   category?: string;
   slug?: string;
+  keywords?: string[];
+  tldr?: string;
 }
 
-const { title, description, pubDate, updatedDate, heroImage, tags = [], category, slug = '' } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, ogImage, tags = [], category, slug = '', keywords = [], tldr } = Astro.props;
+const socialImage = ogImage || heroImage;
 const currentPath = Astro.url.pathname;
 ---
 
@@ -35,11 +41,22 @@ const currentPath = Astro.url.pathname;
   <meta property="og:description" content={description} />
   <meta property="og:type" content="article" />
   <meta property="og:url" content={`https://qing.uno${currentPath}`} />
-  {heroImage && <meta property="og:image" content={heroImage} />}
-  <meta name="twitter:card" content={heroImage ? "summary_large_image" : "summary"} />
+  {socialImage && <meta property="og:image" content={`https://qing.uno${socialImage}`} />}
+  <meta name="twitter:card" content={socialImage ? "summary_large_image" : "summary"} />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
+  {socialImage && <meta name="twitter:image" content={`https://qing.uno${socialImage}`} />}
   <link rel="alternate" type="application/rss+xml" title="qing.uno RSS Feed" href="/rss.xml" />
+  <SEOHead
+    title={title}
+    description={description}
+    pubDate={pubDate}
+    updatedDate={updatedDate}
+    heroImage={heroImage}
+    tags={tags}
+    keywords={keywords}
+    category={category}
+  />
   <title>{title} | qing.uno</title>
 </head>
 <body>
@@ -68,6 +85,8 @@ const currentPath = Astro.url.pathname;
             <img src={heroImage} alt={title} />
           </div>
         )}
+
+        <Tldr summary={tldr} />
 
         <div class="post-body">
           <slot />

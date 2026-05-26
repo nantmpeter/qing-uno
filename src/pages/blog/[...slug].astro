@@ -1,17 +1,21 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
+import RelatedPosts from '../../components/RelatedPosts.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
   return posts.map(post => ({
     params: { slug: post.slug },
-    props: { post },
+    props: { post, allPosts: posts },
   }));
 }
 
-const { post } = Astro.props;
+const { post, allPosts } = Astro.props;
 const { Content } = await render(post);
+
+// Use custom OG image if generated, otherwise fall back to heroImage
+const ogImage = `/og/${post.slug}.png`;
 ---
 
 <BlogPost
@@ -20,9 +24,17 @@ const { Content } = await render(post);
   pubDate={post.data.pubDate}
   updatedDate={post.data.updatedDate}
   heroImage={post.data.heroImage}
+  ogImage={ogImage}
   tags={post.data.tags}
   category={post.data.category}
   slug={post.slug}
+  keywords={post.data.keywords}
+  tldr={post.data.tldr}
 >
   <Content />
+  <RelatedPosts
+    currentSlug={post.slug}
+    currentTags={post.data.tags}
+    allPosts={allPosts}
+  />
 </BlogPost>

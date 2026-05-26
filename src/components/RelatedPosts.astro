@@ -1,0 +1,119 @@
+---
+import PostCard from './PostCard.astro';
+
+interface Post {
+  slug: string;
+  data: {
+    title: string;
+    description: string;
+    pubDate: Date;
+    tags: string[];
+    heroImage?: string;
+    draft: boolean;
+  };
+}
+
+interface Props {
+  currentSlug: string;
+  currentTags: string[];
+  allPosts: Post[];
+  max?: number;
+}
+
+const { currentSlug, currentTags, allPosts, max = 3 } = Astro.props;
+
+// Score posts by tag overlap
+const scored = allPosts
+  .filter(p => p.slug !== currentSlug && !p.data.draft)
+  .map(post => {
+    const overlap = post.data.tags.filter(t => currentTags.includes(t)).length;
+    return { post, score: overlap };
+  })
+  .filter(item => item.score > 0)
+  .sort((a, b) => b.score - a.score || b.post.data.pubDate.valueOf() - a.post.data.pubDate.valueOf())
+  .slice(0, max);
+
+// If not enough tag-matched posts, fill with recent
+let related = scored.map(s => s.post);
+if (related.length < max) {
+  const remaining = allPosts
+    .filter(p => p.slug !== currentSlug && !p.data.draft && !related.includes(p))
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  related = [...related, ...remaining.slice(0, max - related.length)];
+}
+---
+
+{related.length > 0 && (
+  <section class="related-posts">
+    <h2 class="related-title">Related posts</h2>
+    <div class="related-grid">
+      {related.map(post => (
+        <a href={`/blog/${post.slug}`} class="related-card">
+          <span class="related-card-title">{post.data.title}</span>
+          <span class="related-card-date">
+            {post.data.pubDate.toLocaleDateString('zh-CN', { year: 'numeric', month: 'short', day: 'numeric' })}
+          </span>
+          <span class="related-card-desc">{post.data.description}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+)}
+
+<style>
+  .related-posts {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .related-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--color-text);
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .related-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 0.9rem 1rem;
+    background: var(--color-bg-secondary);
+    border-radius: 8px;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .related-card:hover {
+    background: var(--color-bg-card);
+    transform: translateY(-1px);
+  }
+
+  .related-card-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text);
+    line-height: 1.4;
+  }
+
+  .related-card-date {
+    font-size: 0.7rem;
+    color: var(--color-text-tertiary);
+  }
+
+  .related-card-desc {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

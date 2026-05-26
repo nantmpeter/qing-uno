@@ -7,15 +7,23 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "postbuild": "npx pagefind --site dist",
+    "astro": "astro",
+    "ai:outline": "node scripts/ai-writer.mjs outline",
+    "ai:new": "node scripts/ai-writer.mjs new",
+    "ai:polish": "node scripts/ai-writer.mjs polish",
+    "ai:translate": "node scripts/ai-writer.mjs translate",
+    "og:generate": "node scripts/og-image.mjs"
   },
   "dependencies": {
-    "astro": "^5.7.0",
-    "@astrojs/sitemap": "^3.3.0",
-    "@astrojs/rss": "^4.0.0",
     "@astrojs/mdx": "^4.2.0",
+    "@astrojs/rss": "^4.0.0",
+    "@astrojs/sitemap": "^3.3.0",
+    "@resvg/resvg-js": "^2.6.2",
+    "astro": "^5.7.0",
     "astro-seo": "^0.8.4",
-    "remark-reading-time": "^1.0.0"
+    "remark-reading-time": "^1.0.0",
+    "satori": "^0.26.0"
   },
   "devDependencies": {
     "typescript": "^5.8.0"
