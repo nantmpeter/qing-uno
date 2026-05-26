@@ -9,24 +9,26 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 
 <BaseLayout title="Blog | qing.uno" description="All posts — AI, engineering, and creative technology">
   <section class="container">
-    <div class="page-header">
+    <div class="page-header animate-in">
       <h1>Blog</h1>
       <p class="page-desc">Thoughts on AI, engineering, and building things.</p>
     </div>
     <div class="posts-list">
-      {posts.map(post => (
-        <PostCard
-          title={post.data.title}
-          description={post.data.description}
-          pubDate={post.data.pubDate}
-          tags={post.data.tags}
-          slug={post.slug}
-          heroImage={post.data.heroImage}
-        />
+      {posts.map((post, i) => (
+        <div class="animate-in" style={`animation-delay: ${i * 60}ms`}>
+          <PostCard
+            title={post.data.title}
+            description={post.data.description}
+            pubDate={post.data.pubDate}
+            tags={post.data.tags}
+            slug={post.slug}
+            heroImage={post.data.heroImage}
+          />
+        </div>
       ))}
     </div>
     {posts.length === 0 && (
-      <div class="empty-state">
+      <div class="empty-state animate-in">
         <p>No posts yet. Check back soon.</p>
       </div>
     )}
@@ -35,11 +37,15 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 
 <style>
   .page-header {
-    padding: 2.5rem 0 1.5rem;
+    padding: 6rem 0 2rem;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 0.5rem;
   }
 
   .page-header h1 {
-    font-size: 1.75rem;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
     margin-bottom: 0.5rem;
   }
 
@@ -52,5 +58,9 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
     text-align: center;
     padding: 4rem 0;
     color: var(--color-text-tertiary);
+  }
+
+  @media (max-width: 640px) {
+    .page-header { padding: 4.5rem 0 1.5rem; }
   }
 </style>

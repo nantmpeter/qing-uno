@@ -12,41 +12,62 @@ const tags = [...new Set(posts.flatMap(p => p.data.tags))];
 
 <BaseLayout title="qing.uno — AI, engineering & beyond">
   <section class="hero container">
-    <div class="hero-text">
-      <h1>qing.uno</h1>
-      <p class="hero-tagline">AI, engineering & beyond.</p>
-      <p class="hero-desc">
-        Exploring the intersection of artificial intelligence, software engineering, and creative technology.
-        Building things that matter.
-      </p>
+    <div class="hero-badge animate-in">
+      <span class="badge-dot"></span>
+      <span>Available for collaboration</span>
+    </div>
+    <h1 class="hero-title animate-in">
+      Building at the<br />
+      <span class="gradient-text">intersection of AI</span><br />
+      & engineering.
+    </h1>
+    <p class="hero-desc animate-in">
+      Exploring artificial intelligence, software engineering, and creative technology.
+      Writing about things I build, break, and learn along the way.
+    </p>
+    <div class="hero-links animate-in">
+      <a href="/blog" class="hero-cta">
+        Read the blog
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a href="/about" class="hero-ghost">About me</a>
     </div>
   </section>
 
   <section class="container recent-section">
-    <div class="section-header">
-      <h2>Recent posts</h2>
-      <a href="/blog" class="view-all">View all &rarr;</a>
+    <div class="section-header animate-in">
+      <h2>Recent</h2>
+      <a href="/blog" class="view-all">
+        All posts
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+          <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
     </div>
-    <div class="posts-list">
-      {recentPosts.map(post => (
-        <PostCard
-          title={post.data.title}
-          description={post.data.description}
-          pubDate={post.data.pubDate}
-          tags={post.data.tags}
-          slug={post.slug}
-          heroImage={post.data.heroImage}
-        />
+    <div class="posts-grid">
+      {recentPosts.map((post, i) => (
+        <div class="animate-in" style={`animation-delay: ${i * 80}ms`}>
+          <PostCard
+            title={post.data.title}
+            description={post.data.description}
+            pubDate={post.data.pubDate}
+            tags={post.data.tags}
+            slug={post.slug}
+            heroImage={post.data.heroImage}
+          />
+        </div>
       ))}
     </div>
     {recentPosts.length === 0 && (
-      <div class="empty-state">
+      <div class="empty-state animate-in">
         <p>No posts yet. Stay tuned.</p>
       </div>
     )}
   </section>
 
-  <section class="container tags-section">
+  <section class="container tags-section animate-in">
     <h2>Topics</h2>
     <div class="tags-cloud">
       {tags.map(tag => (
@@ -57,49 +78,150 @@ const tags = [...new Set(posts.flatMap(p => p.data.tags))];
 </BaseLayout>
 
 <style>
+  /* Hero */
   .hero {
-    padding: 4rem 0 2rem;
+    padding: 5rem 0 3rem;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
-  .hero h1 {
-    font-size: 2.5rem;
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    margin-bottom: 0.5rem;
-  }
-
-  .hero-tagline {
-    font-size: 1.125rem;
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.85rem;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
     color: var(--color-text-secondary);
-    margin-bottom: 0.75rem;
+    margin-bottom: 1.5rem;
+    width: fit-content;
+  }
+
+  .badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #22c55e;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.045em;
+    margin-bottom: 1.25rem;
+    max-width: 560px;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, var(--color-text) 0%, var(--color-text-tertiary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .gradient-text {
+      background: linear-gradient(135deg, #ededed 0%, #737373 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
   }
 
   .hero-desc {
-    font-size: 0.95rem;
-    color: var(--color-text-tertiary);
-    max-width: 480px;
+    font-size: 1.05rem;
+    color: var(--color-text-secondary);
+    max-width: 440px;
     line-height: 1.7;
+    margin-bottom: 2rem;
   }
 
+  .hero-links {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.25rem;
+    background: var(--color-text);
+    color: var(--color-bg);
+    border-radius: var(--radius-full);
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all var(--duration-normal) var(--ease-out);
+  }
+
+  .hero-cta:hover {
+    color: var(--color-bg);
+    transform: translateX(2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .hero-ghost {
+    padding: 0.6rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    transition: all var(--duration-normal) var(--ease-out);
+  }
+
+  .hero-ghost:hover {
+    color: var(--color-text);
+    border-color: var(--color-text-tertiary);
+  }
+
+  /* Recent */
   .recent-section {
-    padding-top: 1rem;
+    padding-top: 1.5rem;
   }
 
   .section-header {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--color-border);
   }
 
   .section-header h2 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-tertiary);
     margin: 0;
-    font-size: 1.25rem;
+    font-weight: 600;
   }
 
   .view-all {
-    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.8rem;
     color: var(--color-text-tertiary);
+    transition: all var(--duration-fast) ease;
+  }
+
+  .view-all:hover {
+    color: var(--color-text);
+    gap: 0.4rem;
   }
 
   .empty-state {
@@ -108,13 +230,18 @@ const tags = [...new Set(posts.flatMap(p => p.data.tags))];
     color: var(--color-text-tertiary);
   }
 
+  /* Tags */
   .tags-section {
-    padding: 2rem 0;
+    padding: 2.5rem 0 1rem;
   }
 
   .tags-section h2 {
-    font-size: 1.25rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-tertiary);
     margin-bottom: 1rem;
+    font-weight: 600;
   }
 
   .tags-cloud {
@@ -125,21 +252,25 @@ const tags = [...new Set(posts.flatMap(p => p.data.tags))];
 
   .tag-pill {
     display: inline-block;
-    padding: 0.3rem 0.8rem;
+    padding: 0.35rem 0.85rem;
     font-size: 0.8rem;
     color: var(--color-text-secondary);
     background: var(--color-bg-secondary);
-    border-radius: 999px;
-    transition: all 0.2s;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-full);
+    transition: all var(--duration-normal) var(--ease-out);
   }
 
   .tag-pill:hover {
-    color: var(--color-accent);
-    background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+    color: var(--color-text);
+    border-color: var(--color-text-quaternary);
+    transform: translateY(-1px);
   }
 
   @media (max-width: 640px) {
-    .hero { padding: 2.5rem 0 1.5rem; }
-    .hero h1 { font-size: 1.8rem; }
+    .hero { padding: 3rem 0 2rem; min-height: auto; }
+    .hero-title { font-size: 2rem; }
+    .hero-desc { font-size: 0.95rem; }
+    .hero-links { flex-direction: column; align-items: flex-start; }
   }
 </style>

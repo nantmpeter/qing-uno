@@ -24,15 +24,23 @@ const currentPath = Astro.url.pathname;
   <meta property="og:type" content="website" />
   <meta property="og:url" content={`https://qing.uno${currentPath}`} />
   <meta name="twitter:card" content="summary" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="alternate" type="application/rss+xml" title="qing.uno RSS Feed" href="/rss.xml" />
   <title>{title}</title>
 </head>
 <body>
   <Header currentPath={currentPath} />
-  <main>
+  <main class="base-main">
     <slot />
   </main>
   <Footer />
   <Analytics />
 </body>
 </html>
+
+<style>
+  .base-main {
+    padding-top: var(--nav-height);
+    min-height: 100vh;
+  }
+</style>

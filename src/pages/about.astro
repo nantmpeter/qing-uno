@@ -4,52 +4,88 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout title="About | qing.uno" description="About qing.uno">
   <section class="container about-page">
-    <h1>About</h1>
+    <h1 class="about-title animate-in">About</h1>
 
-    <div class="about-content">
+    <div class="about-intro animate-in">
       <p>
         Hey, I'm <strong>Jiayi</strong> — a developer and builder working at the intersection of
         AI, software engineering, and creative technology.
       </p>
+    </div>
 
-      <h2>What I do</h2>
-      <p>
+    <div class="about-section animate-in">
+      <h2 class="section-label">What I do</h2>
+      <p class="section-text">
         I build things. From multi-agent quantitative trading systems to AI-powered game asset pipelines,
         from full-stack web applications to creative experiments with generative AI.
       </p>
+    </div>
 
-      <h2>What you'll find here</h2>
-      <ul>
+    <div class="about-section animate-in">
+      <h2 class="section-label">What you'll find here</h2>
+      <ul class="about-list">
         <li><strong>Deep technical posts</strong> — architecture breakdowns, project retrospectives, lessons learned</li>
         <li><strong>AI & engineering insights</strong> — practical takes on AI tools, frameworks, and workflows</li>
         <li><strong>Building in public</strong> — real progress on real projects, shipped code, honest results</li>
       </ul>
+    </div>
 
-      <h2>Stack & interests</h2>
+    <div class="about-section animate-in">
+      <h2 class="section-label">Stack & interests</h2>
       <div class="interest-grid">
-        <div class="interest-item">
-          <span class="interest-label">AI / LLM</span>
-          <span class="interest-desc">Multi-agent systems, embeddings, fine-tuning</span>
+        <div class="interest-card">
+          <span class="interest-emoji">🤖</span>
+          <div>
+            <span class="interest-label">AI / LLM</span>
+            <span class="interest-desc">Multi-agent systems, embeddings, fine-tuning</span>
+          </div>
         </div>
-        <div class="interest-item">
-          <span class="interest-label">Quant</span>
-          <span class="interest-desc">Factor modeling, backtesting, market microstructure</span>
+        <div class="interest-card">
+          <span class="interest-emoji">📈</span>
+          <div>
+            <span class="interest-label">Quant</span>
+            <span class="interest-desc">Factor modeling, backtesting, market microstructure</span>
+          </div>
         </div>
-        <div class="interest-item">
-          <span class="interest-label">Game dev</span>
-          <span class="interest-desc">AI asset pipelines, pixel art, procedural generation</span>
+        <div class="interest-card">
+          <span class="interest-emoji">🎮</span>
+          <div>
+            <span class="interest-label">Game dev</span>
+            <span class="interest-desc">AI asset pipelines, pixel art, procedural generation</span>
+          </div>
         </div>
-        <div class="interest-item">
-          <span class="interest-label">Full-stack</span>
-          <span class="interest-desc">Rust/Axum, React, PostgreSQL, Python</span>
+        <div class="interest-card">
+          <span class="interest-emoji">⚡</span>
+          <div>
+            <span class="interest-label">Full-stack</span>
+            <span class="interest-desc">Rust/Axum, React, PostgreSQL, Python</span>
+          </div>
         </div>
       </div>
+    </div>
 
-      <h2>Get in touch</h2>
+    <div class="about-section animate-in">
+      <h2 class="section-label">Get in touch</h2>
       <div class="contact-links">
-        <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://twitter.com/" target="_blank" rel="noopener">X / Twitter</a>
-        <a href="mailto:hello@qing.uno">Email</a>
+        <a href="https://github.com/" target="_blank" rel="noopener" class="contact-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+          </svg>
+          GitHub
+        </a>
+        <a href="https://twitter.com/" target="_blank" rel="noopener" class="contact-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
+          </svg>
+          X / Twitter
+        </a>
+        <a href="mailto:hello@qing.uno" class="contact-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+          </svg>
+          Email
+        </a>
       </div>
     </div>
   </section>
@@ -57,56 +93,149 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <style>
   .about-page {
-    padding: 2.5rem 0;
+    padding: 6rem 0 2rem;
   }
 
-  .about-page h1 {
-    font-size: 1.75rem;
-    margin-bottom: 1.5rem;
+  .about-title {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    margin-bottom: 2rem;
   }
 
-  .about-content {
-    max-width: 600px;
+  .about-intro {
+    max-width: 560px;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--color-border);
   }
 
-  .about-content p {
+  .about-intro p {
+    font-size: 1.05rem;
     color: var(--color-text-secondary);
     line-height: 1.8;
   }
 
-  .interest-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 0.75rem;
-    margin: 1rem 0 1.5rem;
+  .about-intro strong {
+    color: var(--color-text);
+    font-weight: 600;
   }
 
-  .interest-item {
-    padding: 0.75rem 1rem;
-    background: var(--color-bg-secondary);
-    border-radius: 8px;
+  .about-section {
+    margin-bottom: 2.5rem;
+  }
+
+  .section-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-tertiary);
+    margin: 0 0 0.75rem;
+    font-weight: 600;
+  }
+
+  .section-text {
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    max-width: 540px;
+  }
+
+  .about-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .about-list li {
+    padding: 0.5rem 0;
+    color: var(--color-text-secondary);
+    border-bottom: 1px solid var(--color-border-subtle);
+    line-height: 1.7;
+    font-size: 0.925rem;
+  }
+
+  .about-list li:last-child {
+    border-bottom: none;
+  }
+
+  .about-list strong {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .interest-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .interest-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem 1.125rem;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition: all var(--duration-normal) var(--ease-out);
+  }
+
+  .interest-card:hover {
+    border-color: var(--color-text-quaternary);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
+  }
+
+  .interest-emoji {
+    font-size: 1.25rem;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 2px;
   }
 
   .interest-label {
     display: block;
     font-weight: 600;
     font-size: 0.875rem;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.15rem;
+    color: var(--color-text);
   }
 
   .interest-desc {
-    font-size: 0.8rem;
+    display: block;
+    font-size: 0.775rem;
     color: var(--color-text-tertiary);
+    line-height: 1.5;
   }
 
   .contact-links {
     display: flex;
-    gap: 1.25rem;
-    margin-top: 0.5rem;
+    gap: 0.5rem;
+    flex-wrap: wrap;
   }
 
-  .contact-links a {
-    font-size: 0.9rem;
+  .contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
     font-weight: 500;
+    color: var(--color-text-secondary);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    transition: all var(--duration-normal) var(--ease-out);
+  }
+
+  .contact-btn:hover {
+    color: var(--color-text);
+    border-color: var(--color-text-quaternary);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  @media (max-width: 640px) {
+    .about-page { padding: 4.5rem 0 2rem; }
+    .interest-grid { grid-template-columns: 1fr; }
   }
 </style>
