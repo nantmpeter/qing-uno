@@ -1,0 +1,60 @@
+---
+// Code block copy button — injected into all <pre> blocks
+---
+
+<script>
+  document.querySelectorAll('pre').forEach((pre) => {
+    const button = document.createElement('button');
+    button.className = 'code-copy-btn';
+    button.setAttribute('aria-label', 'Copy code');
+
+    button.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`;
+
+    pre.style.position = 'relative';
+    pre.appendChild(button);
+
+    button.addEventListener('click', async () => {
+      const code = pre.querySelector('code');
+      if (code) {
+        try {
+          await navigator.clipboard.writeText(code.textContent || '');
+          button.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+          button.classList.add('copied');
+          setTimeout(() => {
+            button.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`;
+            button.classList.remove('copied');
+          }, 2000);
+        } catch {}
+      }
+    });
+  });
+</script>
+
+<style is:global>
+  .code-copy-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.35rem;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    border-radius: 4px;
+    color: rgba(255,255,255,0.5);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s, background 0.2s;
+  }
+
+  pre:hover .code-copy-btn {
+    opacity: 1;
+  }
+
+  .code-copy-btn:hover {
+    background: rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.9);
+  }
+
+  .code-copy-btn.copied {
+    color: #4ade80;
+  }
+</style>

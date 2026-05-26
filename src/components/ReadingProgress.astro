@@ -1,0 +1,32 @@
+---
+// Reading progress bar — shown at the top of blog posts
+---
+
+<div class="reading-progress" id="reading-progress"></div>
+
+<style>
+  .reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0;
+    background: var(--color-accent);
+    z-index: 999;
+    transition: width 0.1s linear;
+  }
+</style>
+
+<script>
+  const progressBar = document.getElementById('reading-progress');
+  if (progressBar) {
+    const updateProgress = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      progressBar.style.width = `${Math.min(progress, 100)}%`;
+    };
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+  }
+</script>

@@ -1,0 +1,39 @@
+---
+// Giscus comment system — powered by GitHub Discussions
+// Config: replace data-repo with your actual repo after setup
+
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+---
+
+<div class="giscus-wrapper">
+  <script
+    is:inline
+    src="https://giscus.app/client.js"
+    data-repo="YOUR_GITHUB_USERNAME/personal-blog"
+    data-repo-id="YOUR_REPO_ID"
+    data-category="Comments"
+    data-category-id="YOUR_CATEGORY_ID"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async
+  ></script>
+</div>
+
+<style>
+  .giscus-wrapper {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+  }
+</style>

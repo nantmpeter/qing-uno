@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const postsByYear = posts.reduce((acc, post) => {
+  const year = post.data.pubDate.getFullYear();
+  if (!acc[year]) acc[year] = [];
+  acc[year].push(post);
+  return acc;
+}, {} as Record<number, typeof posts>);
+
+const years = Object.keys(postsByYear).map(Number).sort((a, b) => b - a);
+---
+
+<BaseLayout title="Archive | qing.uno" description="All posts by date">
+  <section class="container archive-page">
+    <h1>Archive</h1>
+    <p class="archive-count">{posts.length} posts in total</p>
+
+    {years.map(year => (
+      <div class="year-group">
+        <h2 class="year-label">{year}</h2>
+        <ul class="archive-list">
+          {postsByYear[year].map(post => (
+            <li class="archive-item">
+              <FormattedDate date={post.data.pubDate} />
+              <a href={`/blog/${post.slug}`} class="archive-title">{post.data.title}</a>
+              <span class="archive-tags">
+                {post.data.tags.map(tag => (
+                  <a href={`/blog/tag/${tag}`} class="archive-tag">{tag}</a>
+                ))}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+
+    {posts.length === 0 && (
+      <div class="empty-state">
+        <p>No posts yet. The archive will grow.</p>
+      </div>
+    )}
+  </section>
+</BaseLayout>
+
+<style>
+  .archive-page {
+    padding: 2.5rem 0;
+  }
+
+  .archive-page h1 {
+    font-size: 1.75rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .archive-count {
+    color: var(--color-text-tertiary);
+    font-size: 0.85rem;
+    margin-bottom: 2rem;
+  }
+
+  .year-group {
+    margin-bottom: 2rem;
+  }
+
+  .year-label {
+    font-size: 1.125rem;
+    color: var(--color-accent);
+    margin: 0 0 0.75rem;
+    font-weight: 700;
+  }
+
+  .archive-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .archive-item {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.9rem;
+    flex-wrap: wrap;
+  }
+
+  .archive-item time {
+    color: var(--color-text-tertiary);
+    font-size: 0.8rem;
+    flex-shrink: 0;
+    min-width: 100px;
+  }
+
+  .archive-title {
+    color: var(--color-text);
+    font-weight: 500;
+  }
+
+  .archive-title:hover { color: var(--color-accent); }
+
+  .archive-tags {
+    display: flex;
+    gap: 0.3rem;
+    margin-left: auto;
+  }
+
+  .archive-tag {
+    font-size: 0.7rem;
+    color: var(--color-text-tertiary);
+    background: var(--color-bg-secondary);
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+  }
+
+  .archive-tag:hover {
+    color: var(--color-accent);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem 0;
+    color: var(--color-text-tertiary);
+  }
+
+  @media (max-width: 640px) {
+    .archive-item { flex-direction: column; gap: 0.25rem; }
+    .archive-tags { margin-left: 0; }
+  }
+</style>

@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="About | qing.uno" description="About qing.uno">
+  <section class="container about-page">
+    <h1>About</h1>
+
+    <div class="about-content">
+      <p>
+        Hey, I'm <strong>Jiayi</strong> — a developer and builder working at the intersection of
+        AI, software engineering, and creative technology.
+      </p>
+
+      <h2>What I do</h2>
+      <p>
+        I build things. From multi-agent quantitative trading systems to AI-powered game asset pipelines,
+        from full-stack web applications to creative experiments with generative AI.
+      </p>
+
+      <h2>What you'll find here</h2>
+      <ul>
+        <li><strong>Deep technical posts</strong> — architecture breakdowns, project retrospectives, lessons learned</li>
+        <li><strong>AI & engineering insights</strong> — practical takes on AI tools, frameworks, and workflows</li>
+        <li><strong>Building in public</strong> — real progress on real projects, shipped code, honest results</li>
+      </ul>
+
+      <h2>Stack & interests</h2>
+      <div class="interest-grid">
+        <div class="interest-item">
+          <span class="interest-label">AI / LLM</span>
+          <span class="interest-desc">Multi-agent systems, embeddings, fine-tuning</span>
+        </div>
+        <div class="interest-item">
+          <span class="interest-label">Quant</span>
+          <span class="interest-desc">Factor modeling, backtesting, market microstructure</span>
+        </div>
+        <div class="interest-item">
+          <span class="interest-label">Game dev</span>
+          <span class="interest-desc">AI asset pipelines, pixel art, procedural generation</span>
+        </div>
+        <div class="interest-item">
+          <span class="interest-label">Full-stack</span>
+          <span class="interest-desc">Rust/Axum, React, PostgreSQL, Python</span>
+        </div>
+      </div>
+
+      <h2>Get in touch</h2>
+      <div class="contact-links">
+        <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://twitter.com/" target="_blank" rel="noopener">X / Twitter</a>
+        <a href="mailto:hello@qing.uno">Email</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-page {
+    padding: 2.5rem 0;
+  }
+
+  .about-page h1 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-content {
+    max-width: 600px;
+  }
+
+  .about-content p {
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+  }
+
+  .interest-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.75rem;
+    margin: 1rem 0 1.5rem;
+  }
+
+  .interest-item {
+    padding: 0.75rem 1rem;
+    background: var(--color-bg-secondary);
+    border-radius: 8px;
+  }
+
+  .interest-label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.875rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .interest-desc {
+    font-size: 0.8rem;
+    color: var(--color-text-tertiary);
+  }
+
+  .contact-links {
+    display: flex;
+    gap: 1.25rem;
+    margin-top: 0.5rem;
+  }
+
+  .contact-links a {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+</style>

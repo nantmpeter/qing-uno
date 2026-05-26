@@ -1,0 +1,167 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import TagList from '../components/TagList.astro';
+import Comments from '../components/Comments.astro';
+import ReadingProgress from '../components/ReadingProgress.astro';
+import BackToTop from '../components/BackToTop.astro';
+import CodeCopy from '../components/CodeCopy.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  heroImage?: string;
+  tags?: string[];
+  category?: string;
+  slug?: string;
+}
+
+const { title, description, pubDate, updatedDate, heroImage, tags = [], category, slug = '' } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="generator" content={Astro.generator} />
+  <meta name="description" content={description} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content={`https://qing.uno${currentPath}`} />
+  {heroImage && <meta property="og:image" content={heroImage} />}
+  <meta name="twitter:card" content={heroImage ? "summary_large_image" : "summary"} />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <link rel="alternate" type="application/rss+xml" title="qing.uno RSS Feed" href="/rss.xml" />
+  <title>{title} | qing.uno</title>
+</head>
+<body>
+  <ReadingProgress />
+  <Header currentPath={currentPath} />
+
+  <main class="post-layout">
+    <div class="container">
+      <article class="blog-post">
+        <header class="post-header">
+          {category && <span class="post-category">{category}</span>}
+          <h1>{title}</h1>
+          <div class="post-meta-row">
+            <FormattedDate date={pubDate} />
+            {updatedDate && (
+              <span class="updated">
+                (updated <FormattedDate date={updatedDate} />)
+              </span>
+            )}
+          </div>
+          <TagList tags={tags} />
+        </header>
+
+        {heroImage && (
+          <div class="hero-image">
+            <img src={heroImage} alt={title} />
+          </div>
+        )}
+
+        <div class="post-body">
+          <slot />
+        </div>
+
+        <CodeCopy />
+        <Comments slug={slug} />
+      </article>
+    </div>
+    <TableOfContents />
+  </main>
+
+  <BackToTop />
+  <Footer />
+</body>
+</html>
+
+<style>
+  .blog-post {
+    padding-top: 2.5rem;
+    padding-bottom: 2rem;
+  }
+
+  .post-header {
+    margin-bottom: 2rem;
+  }
+
+  .post-category {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  .post-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--color-text-tertiary);
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-image {
+    margin-bottom: 2rem;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .hero-image img {
+    width: 100%;
+    display: block;
+  }
+
+  .post-body {
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .post-body :global(h2) {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .post-body :global(img) {
+    border-radius: 8px;
+    margin: 1.5rem 0;
+  }
+
+  .post-body :global(a) {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .post-body :global(a:hover) {
+    text-decoration: none;
+  }
+
+  .post-layout {
+    display: grid;
+    grid-template-columns: 1fr 200px;
+    gap: 2rem;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  @media (max-width: 1080px) {
+    .post-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

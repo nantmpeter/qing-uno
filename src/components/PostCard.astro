@@ -1,0 +1,97 @@
+---
+import FormattedDate from './FormattedDate.astro';
+import TagList from './TagList.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  tags?: string[];
+  slug: string;
+  heroImage?: string;
+}
+
+const { title, description, pubDate, tags = [], slug, heroImage } = Astro.props;
+---
+
+<article class="post-card">
+  {heroImage && (
+    <a href={`/blog/${slug}`} class="post-image-link">
+      <img src={heroImage} alt={title} class="post-image" loading="lazy" />
+    </a>
+  )}
+  <div class="post-content">
+    <a href={`/blog/${slug}`} class="post-title">{title}</a>
+    <div class="post-meta">
+      <FormattedDate date={pubDate} />
+    </div>
+    <p class="post-desc">{description}</p>
+    <TagList tags={tags} />
+  </div>
+</article>
+
+<style>
+  .post-card {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    gap: 1.25rem;
+  }
+
+  .post-card:first-child { padding-top: 0; }
+
+  .post-image-link {
+    flex-shrink: 0;
+    width: 120px;
+    height: 90px;
+    border-radius: 8px;
+    overflow: hidden;
+    align-self: flex-start;
+  }
+
+  .post-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .post-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .post-title {
+    display: block;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-text);
+    line-height: 1.4;
+    margin-bottom: 0.3rem;
+  }
+
+  .post-title:hover { color: var(--color-accent); }
+
+  .post-meta {
+    font-size: 0.8rem;
+    color: var(--color-text-tertiary);
+    margin-bottom: 0.5rem;
+  }
+
+  .post-desc {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin-bottom: 0.6rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  @media (max-width: 640px) {
+    .post-image-link {
+      width: 80px;
+      height: 60px;
+    }
+  }
+</style>

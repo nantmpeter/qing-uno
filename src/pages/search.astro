@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Search | qing.uno" description="Search all posts">
+  <section class="container search-page">
+    <h1>Search</h1>
+    <div id="search" class="search-container">
+      <div id="searchbox" class="search-box"></div>
+      <div id="search-results" class="search-results"></div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .search-page {
+    padding: 2.5rem 0;
+  }
+
+  .search-page h1 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .search-box {
+    margin-bottom: 1.5rem;
+  }
+
+  .search-results {
+    min-height: 200px;
+  }
+
+  .search-results :global(.pagefind-ui__result-title) {
+    font-weight: 600;
+  }
+
+  .search-results :global(.pagefind-ui__result-excerpt) {
+    color: var(--color-text-secondary);
+  }
+
+  .search-results :global(.pagefind-ui__search-clear) {
+    cursor: pointer;
+  }
+</style>
+
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+<script is:inline src="/pagefind/pagefind-ui.js"></script>
+<script is:inline>
+  new PagefindUI({
+    element: '#searchbox',
+    showSubResults: true,
+    showImages: false,
+  });
+</script>

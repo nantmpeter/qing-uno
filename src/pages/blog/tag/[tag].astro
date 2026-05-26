@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PostCard from '../../../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  const tags = [...new Set(posts.flatMap(p => p.data.tags))];
+
+  return tags.map(tag => ({
+    params: { tag },
+    props: {
+      tag,
+      posts: posts
+        .filter(p => p.data.tags.includes(tag))
+        .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+    },
+  }));
+}
+
+const { tag, posts } = Astro.props;
+---
+
+<BaseLayout title={`"${tag}" posts | qing.uno`} description={`All posts tagged "${tag}"`}>
+  <section class="container">
+    <div class="page-header">
+      <a href="/blog" class="back-link">&larr; All posts</a>
+      <h1>#{tag}</h1>
+      <p class="page-desc">{posts.length} post{posts.length !== 1 ? 's' : ''}</p>
+    </div>
+    <div class="posts-list">
+      {posts.map(post => (
+        <PostCard
+          title={post.data.title}
+          description={post.data.description}
+          pubDate={post.data.pubDate}
+          tags={post.data.tags}
+          slug={post.slug}
+          heroImage={post.data.heroImage}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding: 2.5rem 0 1.5rem;
+  }
+
+  .back-link {
+    display: inline-block;
+    font-size: 0.85rem;
+    color: var(--color-text-tertiary);
+    margin-bottom: 0.75rem;
+  }
+
+  .page-header h1 {
+    font-size: 1.75rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .page-desc {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+  }
+</style>

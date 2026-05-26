@@ -1,0 +1,62 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="wide-container footer-inner">
+    <div class="footer-left">
+      <span>&copy; {currentYear} qing.uno</span>
+      <span class="dot">&middot;</span>
+      <span>Built with Astro</span>
+    </div>
+    <div class="footer-right">
+      <a href="/rss.xml" target="_blank">RSS</a>
+      <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://twitter.com/" target="_blank" rel="noopener">X / Twitter</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--color-border);
+    padding: 1.5rem 0;
+    margin-top: 4rem;
+    font-size: 0.8rem;
+    color: var(--color-text-tertiary);
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-left {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .footer-right {
+    display: flex;
+    gap: 1.25rem;
+  }
+
+  .footer-right a {
+    color: var(--color-text-tertiary);
+    font-size: 0.8rem;
+  }
+
+  .footer-right a:hover {
+    color: var(--color-text);
+  }
+
+  @media (max-width: 640px) {
+    .footer-inner {
+      flex-direction: column;
+      gap: 0.75rem;
+      text-align: center;
+    }
+  }
+</style>

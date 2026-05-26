@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="404 | qing.uno">
+  <section class="container not-found">
+    <h1>404</h1>
+    <p>Page not found.</p>
+    <a href="/" class="back-home">&larr; Back to home</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    text-align: center;
+  }
+
+  .not-found h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    color: var(--color-text-tertiary);
+    margin-bottom: 0.5rem;
+  }
+
+  .not-found p {
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem;
+  }
+
+  .back-home {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+</style>
