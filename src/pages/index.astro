@@ -124,7 +124,7 @@ const tags = [...new Set(posts.flatMap(p => p.data.tags))];
   }
 
   .gradient-text {
-    background: linear-gradient(135deg, var(--color-text) 0%, var(--color-text-tertiary) 100%);
+    background: linear-gradient(135deg, var(--color-accent) 0%, #a78bfa 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -132,7 +132,7 @@ const tags = [...new Set(posts.flatMap(p => p.data.tags))];
 
   @media (prefers-color-scheme: dark) {
     .gradient-text {
-      background: linear-gradient(135deg, #ededed 0%, #737373 100%);
+      background: linear-gradient(135deg, #818cf8 0%, #c4b5fd 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -158,8 +158,8 @@ const tags = [...new Set(posts.flatMap(p => p.data.tags))];
     align-items: center;
     gap: 0.4rem;
     padding: 0.6rem 1.25rem;
-    background: var(--color-text);
-    color: var(--color-bg);
+    background: var(--color-accent);
+    color: white;
     border-radius: var(--radius-full);
     font-size: 0.875rem;
     font-weight: 500;
@@ -167,9 +167,10 @@ const tags = [...new Set(posts.flatMap(p => p.data.tags))];
   }
 
   .hero-cta:hover {
-    color: var(--color-bg);
+    color: white;
+    background: var(--color-accent-hover);
     transform: translateX(2px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 8px 20px -4px rgba(99, 102, 241, 0.35);
   }
 
   .hero-ghost {
@@ -262,8 +263,9 @@ const tags = [...new Set(posts.flatMap(p => p.data.tags))];
   }
 
   .tag-pill:hover {
-    color: var(--color-text);
-    border-color: var(--color-text-quaternary);
+    color: var(--color-accent);
+    border-color: var(--color-accent-border);
+    background: var(--color-accent-soft);
     transform: translateY(-1px);
   }
 

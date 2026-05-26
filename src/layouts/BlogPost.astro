@@ -186,15 +186,16 @@ const currentPath = Astro.url.pathname;
   }
 
   .post-body :global(a) {
-    color: var(--color-text);
+    color: var(--color-accent);
     text-decoration: underline;
     text-underline-offset: 3px;
-    text-decoration-color: var(--color-text-quaternary);
+    text-decoration-color: var(--color-accent-border);
     transition: all var(--duration-fast) ease;
   }
 
   .post-body :global(a:hover) {
-    text-decoration-color: var(--color-text-tertiary);
+    color: var(--color-accent-hover);
+    text-decoration-color: var(--color-accent-hover);
   }
 
   .post-body :global(blockquote) {
