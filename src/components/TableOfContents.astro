@@ -10,22 +10,74 @@
 
 <style>
   .toc {
+    display: none;
+    flex: 0 0 auto;
+    width: 200px;
     position: sticky;
     top: calc(var(--nav-height) + 1.5rem);
     max-height: calc(100vh - var(--nav-height) - 3rem);
     overflow-y: auto;
-    font-size: 0.8rem;
-    padding: 1rem;
+    font-size: 0.78rem;
+    padding: 1rem 0 1rem 1.25rem;
     border-left: 2px solid var(--color-border);
+    /* Hide scrollbar by default, show on hover */
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    transition: scrollbar-color 0.3s;
+  }
+
+  /* Show scrollbar thumb on hover */
+  .toc:hover {
+    scrollbar-color: var(--color-text-quaternary) transparent;
+  }
+
+  /* Webkit: hide scrollbar track, show thumb only on hover */
+  .toc::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .toc::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .toc::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 2px;
+    transition: background 0.3s;
+  }
+
+  .toc:hover::-webkit-scrollbar-thumb {
+    background: var(--color-text-quaternary);
+  }
+
+  .toc:hover::-webkit-scrollbar-thumb:hover {
+    background: var(--color-text-tertiary);
+  }
+
+  @media (min-width: 1024px) {
+    .toc {
+      display: block;
+      /* Self-adaptive: fills the gap between content (70ch) and viewport edge */
+      width: calc((100vw - 70ch * 1.05 - 4rem - 2.5rem) / 2);
+      min-width: 200px;
+      max-width: 320px;
+    }
+  }
+
+  @media (min-width: 1400px) {
+    .toc {
+      width: 300px;
+    }
   }
 
   .toc-title {
     font-weight: 600;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
     color: var(--color-text-tertiary);
     margin-bottom: 0.5rem;
+    white-space: nowrap;
   }
 
   .toc-list {
@@ -35,15 +87,18 @@
   }
 
   .toc-list li {
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.2rem;
   }
 
   .toc-list a {
     display: block;
     color: var(--color-text-secondary);
-    padding: 0.15rem 0;
-    line-height: 1.5;
+    padding: 0.2rem 0;
+    line-height: 1.55;
     transition: color 0.2s;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
   }
 
   .toc-list a:hover,
@@ -53,10 +108,6 @@
 
   .toc-list .toc-h3 {
     padding-left: 0.75rem;
-  }
-
-  @media (max-width: 1080px) {
-    .toc { display: none; }
   }
 </style>
 

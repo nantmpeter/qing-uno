@@ -105,44 +105,53 @@ const currentPath = Astro.url.pathname;
 </html>
 
 <style>
+  .container {
+    flex: 1 1 auto;
+    max-width: 70ch;
+    min-width: 0;
+    padding: 0;
+  }
+
   .blog-post {
-    padding-top: 6rem;
+    padding-top: 5rem;
     padding-bottom: 3rem;
   }
 
   .post-header {
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
     padding-bottom: 2rem;
     border-bottom: 1px solid var(--color-border);
   }
 
   .post-category {
     display: inline-block;
-    font-size: 0.7rem;
+    font-size: var(--text-xs);
     font-weight: 600;
     font-family: var(--font-mono);
     color: var(--color-text-tertiary);
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: var(--tracking-wider);
     margin-bottom: 0.75rem;
   }
 
   .post-title {
-    font-size: 2.25rem;
+    font-size: var(--text-3xl);
     font-weight: 700;
-    line-height: 1.15;
-    letter-spacing: -0.04em;
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
     margin-bottom: 0.75rem;
+    text-wrap: balance;
   }
 
   .post-meta-row {
     display: flex;
     align-items: center;
     gap: 0.35rem;
-    font-size: 0.8rem;
+    font-size: var(--text-sm);
     color: var(--color-text-tertiary);
     font-family: var(--font-mono);
     margin-bottom: 0.75rem;
+    letter-spacing: 0.01em;
   }
 
   .updated {
@@ -161,22 +170,29 @@ const currentPath = Astro.url.pathname;
     display: block;
   }
 
+  /* Article body — the reading experience */
   .post-body {
-    font-size: 1rem;
-    line-height: 1.8;
+    font-size: var(--text-base);
+    line-height: var(--leading-loose);
   }
 
   .post-body :global(h2) {
-    font-size: 1.4rem;
+    font-size: var(--text-xl);
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-normal);
     margin-top: 2.5rem;
     padding-top: 1.5rem;
     border-top: 1px solid var(--color-border);
-    letter-spacing: -0.03em;
   }
 
   .post-body :global(h3) {
-    font-size: 1.15rem;
-    letter-spacing: -0.02em;
+    font-size: var(--text-lg);
+    letter-spacing: var(--tracking-normal);
+  }
+
+  .post-body :global(p) {
+    line-height: var(--leading-loose);
+    margin-bottom: 1.35rem;
   }
 
   .post-body :global(img) {
@@ -203,31 +219,45 @@ const currentPath = Astro.url.pathname;
   }
 
   .post-body :global(code) {
-    font-size: 0.82em;
+    font-size: 0.85em;
   }
 
   .post-body :global(pre) {
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
+    line-height: 1.8;
   }
 
+  .post-body :global(li) {
+    line-height: var(--leading-relaxed);
+  }
+
+  /* Post layout — flex for TOC */
   .post-layout {
-    display: grid;
-    grid-template-columns: 1fr 200px;
-    gap: 2rem;
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    padding: 0 2rem;
   }
 
-  @media (max-width: 1080px) {
+  @media (min-width: 1024px) {
     .post-layout {
-      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .post-layout {
+      flex-direction: column;
+      max-width: 70ch;
+      margin: 0 auto;
     }
   }
 
   @media (max-width: 640px) {
-    .blog-post { padding-top: 4.5rem; }
-    .post-title { font-size: 1.65rem; }
+    .post-layout { padding: 0 1.25rem; }
+    .blog-post { padding-top: 4rem; }
+    .post-title { font-size: var(--text-2xl); }
+    .post-body { font-size: var(--text-sm); }
   }
 </style>

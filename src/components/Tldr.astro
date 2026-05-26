@@ -34,12 +34,12 @@ const { summary } = Astro.props;
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.45rem;
     color: var(--color-text-tertiary);
   }
 
   .tldr-label {
-    font-size: 0.65rem;
+    font-size: var(--text-xs);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -48,9 +48,9 @@ const { summary } = Astro.props;
   }
 
   .tldr p {
-    font-size: 0.9rem;
+    font-size: var(--text-sm);
     color: var(--color-text-secondary);
-    line-height: 1.7;
+    line-height: var(--leading-relaxed);
     margin: 0;
   }
 </style>

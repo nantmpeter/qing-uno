@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="About | qing.uno" description="About qing.uno">
-  <section class="container about-page">
+  <section class="about-page">
     <h1 class="about-title animate-in">About</h1>
 
     <div class="about-intro animate-in">
@@ -93,13 +93,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <style>
   .about-page {
-    padding: 6rem 0 2rem;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 5rem 2rem 2rem;
+  }
+
+  @media (max-width: 767px) {
+    .about-page {
+      max-width: 70ch;
+      padding: 4rem 1.5rem 2rem;
+    }
   }
 
   .about-title {
-    font-size: 2rem;
+    font-size: var(--text-2xl);
     font-weight: 700;
-    letter-spacing: -0.04em;
+    letter-spacing: var(--tracking-tight);
     margin-bottom: 2rem;
   }
 
@@ -111,14 +120,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .about-intro p {
-    font-size: 1.05rem;
+    font-size: var(--text-md);
     color: var(--color-text-secondary);
-    line-height: 1.8;
+    line-height: var(--leading-loose);
   }
 
   .about-intro strong {
     color: var(--color-text);
-    font-weight: 600;
   }
 
   .about-section {
@@ -126,9 +134,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .section-label {
-    font-size: 0.8rem;
+    font-size: var(--text-xs);
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: var(--tracking-wider);
     color: var(--color-text-tertiary);
     margin: 0 0 0.75rem;
     font-weight: 600;
@@ -136,7 +144,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .section-text {
     color: var(--color-text-secondary);
-    line-height: 1.8;
+    line-height: var(--leading-loose);
     max-width: 540px;
   }
 
@@ -146,11 +154,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .about-list li {
-    padding: 0.5rem 0;
+    padding: 0.6rem 0;
     color: var(--color-text-secondary);
     border-bottom: 1px solid var(--color-border-subtle);
-    line-height: 1.7;
-    font-size: 0.925rem;
+    line-height: var(--leading-relaxed);
+    font-size: var(--text-sm);
   }
 
   .about-list li:last-child {
@@ -159,7 +167,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .about-list strong {
     color: var(--color-text);
-    font-weight: 600;
   }
 
   .interest-grid {
@@ -195,16 +202,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .interest-label {
     display: block;
     font-weight: 600;
-    font-size: 0.875rem;
-    margin-bottom: 0.15rem;
+    font-size: var(--text-sm);
+    margin-bottom: 0.2rem;
     color: var(--color-text);
   }
 
   .interest-desc {
     display: block;
-    font-size: 0.775rem;
+    font-size: var(--text-xs);
     color: var(--color-text-tertiary);
-    line-height: 1.5;
+    line-height: var(--leading-normal);
   }
 
   .contact-links {
@@ -218,7 +225,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     align-items: center;
     gap: 0.4rem;
     padding: 0.5rem 1rem;
-    font-size: 0.85rem;
+    font-size: var(--text-sm);
     font-weight: 500;
     color: var(--color-text-secondary);
     background: var(--color-bg-card);
@@ -236,7 +243,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   @media (max-width: 640px) {
-    .about-page { padding: 4.5rem 0 2rem; }
+    .about-page { padding: 4rem 0 2rem; }
     .interest-grid { grid-template-columns: 1fr; }
   }
 </style>

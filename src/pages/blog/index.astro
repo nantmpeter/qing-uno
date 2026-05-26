@@ -8,7 +8,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 ---
 
 <BaseLayout title="Blog | qing.uno" description="All posts — AI, engineering, and creative technology">
-  <section class="container">
+  <section class="blog-list-section">
     <div class="page-header animate-in">
       <h1>Blog</h1>
       <p class="page-desc">Thoughts on AI, engineering, and building things.</p>
@@ -36,22 +36,37 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 </BaseLayout>
 
 <style>
+  .blog-list-section {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  @media (max-width: 767px) {
+    .blog-list-section {
+      max-width: 70ch;
+      padding: 0 1.5rem;
+    }
+  }
+
   .page-header {
-    padding: 6rem 0 2rem;
+    padding: 5rem 0 2rem;
     border-bottom: 1px solid var(--color-border);
     margin-bottom: 0.5rem;
   }
 
   .page-header h1 {
-    font-size: 2rem;
+    font-size: var(--text-2xl);
     font-weight: 700;
-    letter-spacing: -0.04em;
+    letter-spacing: var(--tracking-tight);
     margin-bottom: 0.5rem;
+    margin-top: 0;
   }
 
   .page-desc {
     color: var(--color-text-secondary);
-    font-size: 0.95rem;
+    font-size: var(--text-md);
+    line-height: var(--leading-relaxed);
   }
 
   .empty-state {
@@ -61,6 +76,6 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
   }
 
   @media (max-width: 640px) {
-    .page-header { padding: 4.5rem 0 1.5rem; }
+    .page-header { padding: 4rem 0 1.5rem; }
   }
 </style>

@@ -14,12 +14,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <style>
   .search-page {
-    padding: 2.5rem 0;
+    padding: 5rem 0 2rem;
   }
 
   .search-page h1 {
-    font-size: 1.75rem;
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    letter-spacing: var(--tracking-tight);
     margin-bottom: 1.5rem;
+    margin-top: 0;
   }
 
   .search-box {
@@ -32,14 +35,25 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .search-results :global(.pagefind-ui__result-title) {
     font-weight: 600;
+    font-size: var(--text-md);
+    line-height: var(--leading-snug);
   }
 
   .search-results :global(.pagefind-ui__result-excerpt) {
     color: var(--color-text-secondary);
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
   }
 
   .search-results :global(.pagefind-ui__search-clear) {
     cursor: pointer;
+  }
+
+  .search-results :global(.pagefind-ui__filter-name) {
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+    color: var(--color-text-tertiary);
   }
 </style>
 
